@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <style>
+        #title
+        {
+        font-size:20px;
+        }
+        h2
+        {
+          text-align: center;
+        }
+        #card
+        {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        #query
+        {
+          width:500px;
+          margin-left: 70px;
+          border:1px solid;
+          border-radius:15px;
+          background-color: var(--bg-panel);
+          color: var(--color-text);
+        }
+        .input-group
+        {
+          width:700px;
+          margin-left: 50px;
+        }
+        #button
+        {
+          margin-left: 10px;
+          border-radius: 7px;
+        }
+
+        #search
+        {
+        width:100px;
+        height:40px;
+        }
+        #wiki
+        {
+        margin-right:10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .bg
+        {
+          background-color:#F0FFFF;
+        }
+        }
+        #suggestion
+        {
+        margin-left:10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        input[type=checkbox] 
+        {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+        }
+
+        label 
+        {
+          cursor: pointer;
+          text-indent: -9999px;
+          width: 52px;
+          height: 27px;
+          background: grey;
+          float: right;
+          border-radius: 100px;
+          position: relative;
+        }
+
+        label:after 
+        {
+          content: '';
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          width: 20px;
+          height: 20px;
+          background: #fff;
+          border-radius: 90px;
+          transition: 0.3s;
+        }
+
+        input:checked + label 
+        {
+          background: var(--color-headings);
+        }
+
+        input:checked + label:after 
+        {
+          left: calc(100% - 5px);
+          transform: translateX(-100%);
+        }
+
+        label:active:after 
+        {
+          width: 45px;
+        }
+        html 
+        {
+  
+          --bg: #FCFCFC;
+          --bg-panel: #FFFFFF;
+          --color-headings: #0077FF;
+          --color-text: #333333;
+          --bg-navbar:#FFFFFF;
+          --color-headings: #0077FF;
+
+        }
+
+        html[data-theme='dark']
+        {
+          --bg: #333333;
+          --bg-panel: #434343;
+          --color-headings: #3694FF;
+          --color-text: #B5B5B5;
+          --bg-navbar:#333333;
+          --color-headings: #3694FF;
+        }
+
+        a
+        {
+            color: var(--color-headings);
+        }
+
+        body {
+          background-color: var(--bg);
+        }
+
+        .card {
+          background-color: var(--bg-panel);
+          color: var(--color-text);
+         
+          
+          
+        }
+        .navv {
+           background-color: var(--bg-navbar);
+          
+          
+        }
+
+        .container h1 {
+          margin: 0;
+          color: var(--color-headings);
+        }
+        .container p {
+          color: var(--color-text);
+          grid-area: content;
+          font-size: 1.1em;
+          line-height: 1.8em;
+          margin-top: 2em;
+        }
+
+        .navv p
+        {
+          color: var(--color-text);
+        }
+
+
+        #dark
+        {
+          margin-left: 600px;
+          
+        }
+
+
+
+
+    </style>
+
+
+</head>
+   <body>
+   <br>
+    <div class="navv">
+        <form action="http://localhost:5000/search/start" method="post">
+    <nav class="navbar navbar-expand-sm">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <img src="{{url_for('static',filename='search.png')}}" id="search">
+    </li>
+    <li class="nav-item">
+      <input type="text" class="form-control"  id="query" name="query" value="{{result2}}" required="required">
+    </li>
+    <li class="nav-item">
+
+      <button type="submit" class="btn btn-primary" id="button">Search</button>
+
+    </li>
+    <li class="nav-item" id="dark">
+      <p>DarkMode</p>
+    </li>
+    <li class="nav-item">
+    <div class="toggle-container">
+      <input type="checkbox" id="switch" name="theme" /><label for="switch">Toggle</label>
+      </div>
+    </li>
+  </ul>
+</nav>
+            </form>
+</div>
+    <hr>
+       <div class="row">
+           <div class="col-sm-2">
+            {% if suggestions[0]!=0 %}
+               <div class="card" id="suggestion">
+              <div class="card-body">
+                <div class="card-title">
+                    <h5>Suggestions:</h5>
+                </div>
+                  <hr>
+                <div class="card-text">
+                  {% for sug in suggestions[1] %}
+                    <ul>
+                        <li>
+                    <h6><a href="http://localhost:5000/search/{{sug}}">{{sug}}</a></h6>
+                        </li>
+                    </ul>
+
+                    {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+           </div>
+           <div class="col-sm-7">
+            {% for key, value in result.items() %}
+            <div class="card" id="card">
+              <div class="card-body">
+                <div class="card-title">
+                  <h6><a href="http://localhost:5000/files/{{key}}" id="title">{{value[0][:85]}}...</a></h6>
+                </div>
+                <div class="card-text">
+                  <p>{{value[1][:400]}}...</p>
+                </div>
+              </div>
+            </div>
+               <br>
+               {% endfor %}
+           </div>
+
+          <div class="col-sm-3" >
+            {% if result3[1]!="" %}
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title">
+                    <h4>Results from <a href="https://en.wikipedia.org/wiki/{{result3[0]}}">wikipedia</a>:</h4>
+                </div>
+                  <hr>
+                <div class="card-text">    
+                  {{result3[1][:600]+"..."}}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+      </div>
+      
+      <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script id="rendered-js">
+var checkbox = document.querySelector('input[name=theme]');
+
+checkbox.addEventListener('change', function () {
+  if (this.checked) {
+    trans();
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else {
+    trans();
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+});
+
+let trans = () => {
+  document.documentElement.classList.add('transition');
+  window.setTimeout(() => {
+    document.documentElement.classList.remove('transition');
+  }, 1000);
+};
+//# sourceURL=pen.js
+    </script>
+
+
+   </body>
+</html>

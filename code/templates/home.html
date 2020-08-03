@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+        #button
+        {
+          width:170px;
+          margin-left: 450px;
+          border-radius:5px;
+        }
+
+        #search
+        {
+        margin-left: 450px;
+        font-size: 30px;
+        width:150px;
+        height:100px;
+        }
+
+        .container
+        {
+        margin-top:200px;
+      }
+
+      #query
+      {
+        border:1px solid;
+        border-radius:15px;
+        height:50px;
+        width:1000px;
+        margin-left:50px;
+      }
+      #body
+      {
+        background-image: url({{url_for('static',filename='bg5.jpg')}});
+
+        height:520px;
+         background-repeat: repeat-x;
+
+
+      }
+
+
+
+    </style>
+</head>
+<body>
+  <div id="body">
+
+
+<div class="container">
+      <form action = "http://localhost:5000/search/start" method = "post">
+      <div class="form-group">
+       <img src="{{url_for('static',filename='search.png')}}" id="search">
+          <br>
+      <input type="text" class="form-control"  id="query" name="query" placeholder="enter the query" required="required">
+
+          <br>
+    <button type="submit" class="btn btn-primary" id="button">Search</button>
+      </form>
+</div>
+
+
+</div>
+</body>
+</html>

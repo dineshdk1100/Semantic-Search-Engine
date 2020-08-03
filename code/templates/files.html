@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+
+    <style>
+        #text
+        {
+        border:1px solid;
+        margin-top:50px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        html {
+  
+  --bg: #FCFCFC;
+  --bg-panel: #EBEBEB;
+  --color-headings: #0077FF;
+  --color-text: #333333;
+  --bg-navbar:#EBEBEB;
+}
+
+html[data-theme='dark'] {
+  --bg: #333333;
+  --bg-panel: #434343;
+  --color-headings: #3694FF;
+  --color-text: #B5B5B5;
+  --bg-navbar:#333333;
+}
+
+body {
+  background-color: var(--bg);
+}
+
+.container {
+  background-color: var(--bg-panel);
+ 
+  padding: 5em;
+  border-radius: 15px;
+  
+}
+.navv {
+   background-color: var(--bg-navbar);
+  
+  
+}
+.container h1 {
+  margin: 0;
+  color: var(--color-headings);
+}
+.container p {
+  color: var(--color-text);
+  grid-area: content;
+  font-size: 1.1em;
+  line-height: 1.8em;
+  margin-top: 2em;
+}
+
+.navv p
+{
+  color: var(--color-text);
+}
+
+input[type=checkbox] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 52px;
+  height: 27px;
+  background: grey;
+  float: right;
+  border-radius: 100px;
+  position: relative;
+}
+
+label:after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+input:checked + label {
+  background: var(--color-headings);
+}
+
+input:checked + label:after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+label:active:after {
+  width: 45px;
+}
+
+.toggle-container
+{
+  margin-left: 5px;
+  margin-top: 10px;
+}
+#dark
+{
+  margin-left: 1300px;
+  margin-top: 10px;
+}
+
+
+       
+
+
+
+</style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body>
+  <div class="navv">
+  <nav class="navbar navbar-expand-sm">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <h5><a class="nav-link" href="http://localhost:5000/">Home</a></h5>
+    </li>
+    <li class="nav-item" id="dark">
+      <p>DarkMode</p>
+    <li class="nav-item">
+    <div class="toggle-container">
+      <input type="checkbox" id="switch" name="theme" /><label for="switch">Toggle</label>
+      </div>
+    </li>
+  </ul>
+</nav>
+</div>
+<div class="container" id="text">
+    {% for value in result %}
+    <p>{{value}}</p>
+    {% endfor %}
+</div>
+
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script id="rendered-js">
+var checkbox = document.querySelector('input[name=theme]');
+
+checkbox.addEventListener('change', function () {
+  if (this.checked) {
+    trans();
+    document.documentElement.setAttribute('data-theme', 'dark');
+  } else {
+    trans();
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+});
+
+let trans = () => {
+  document.documentElement.classList.add('transition');
+  window.setTimeout(() => {
+    document.documentElement.classList.remove('transition');
+  }, 1000);
+};
+//# sourceURL=pen.js
+    </script>
+</body>
+</html>

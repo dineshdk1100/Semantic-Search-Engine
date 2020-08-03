@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>search</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+  	#noresult
+  	{
+  		margin-left:200px;
+  		width:400px;
+
+  	}
+
+  	#query
+        {
+          width:500px;
+          margin-left: 70px;
+          border:1px solid;
+          border-radius:15px;
+        }
+        .input-group
+        {
+          width:700px;
+          margin-left: 50px;
+        }
+        #search
+        {
+        width:100px;
+        height:40px;
+        }
+        #button
+        {
+          margin-left: 10px;
+          
+  </style>
+
+ </head>
+ <body>
+ 	<br>
+    <div class="navv">
+        <form action="http://localhost:5000/search/start" method="post">
+    <nav class="navbar navbar-expand-sm">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <img src="{{url_for('static',filename='search.png')}}" id="search">
+    </li>
+    <li class="nav-item">
+      <input type="text" class="form-control"  id="query" name="query" value="{{result2}}" required="required">
+    </li>
+    <li class="nav-item">
+
+      <button type="submit" class="btn btn-primary" id="button">Search</button>
+
+    </li>
+  </ul>
+</nav>
+            </form>
+</div>
+   <hr>
+   <div class="container">
+   <h5>Your search did not match any documents</h5>
+   <br>
+   <ul>
+   	<h6>
+   	<li>Try different keywords</li>
+   	<br>
+   	<li>Try generalised words</li>
+   </h6>
+   </ul>
+   <img src="{{url_for('static',filename='noresult.jpg')}}" id="noresult">
+</div>
+
+</body>
+</html>
